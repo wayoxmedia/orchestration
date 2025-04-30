@@ -1,0 +1,37 @@
+services:
+  apache-proxy:
+    image: httpd:2.4
+    container_name: apache-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./proxy/vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+      - ./proxy/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - deepdevs
+      - eglee
+
+  deepdevs:
+    build:
+      context: .
+      dockerfile: docker/dd.Dockerfile
+    container_name: deepdevs
+    # network_mode: "host"  # Use the host's network for external connections
+    volumes:
+      - ../myStoreAdmin/html:/var/www/html
+      - ./docker/deepdevs-vhost.conf:/etc/apache2/sites-enabled/000-default.conf
+    expose:
+      - "80"
+
+  eglee:
+    build:
+      context: .
+      dockerfile: docker/eg.Dockerfile
+    container_name: eglee
+    volumes:
+      - ../EgleesGourmet/html:/var/www/html
+    expose:
+      - "80"
+volumes:
+  deepdevs-data:
+  eglee-data:
