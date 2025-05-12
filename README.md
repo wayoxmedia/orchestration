@@ -7,8 +7,8 @@ A simple docker orchestration for a LAMP environment.
 * ssh
 * docker
 * Your favorite IDE (Visual Studio Code, PhpStorm, etc.)
-* My Store Admin repo successfully cloned and running.
-* RestoMarket repo successfully cloned and running.
+* My Store Admin repo successfully cloned and running. (https://github.com/wayoxmedia/myStoreAdmin)
+* RestoMarket repo successfully cloned and running. (https://github.com/wayoxmedia/restomarket)
 
 ## Installation
 
