@@ -17,11 +17,8 @@ A simple docker orchestration for a LAMP environment.
 You should have already a folder structure like this:
 
     YourDevFolder
-
     |- EgleesGourmet
-
     |- orchestration     <- This repo
-
     |- myStoreAdmin
 
 ### Getting Started
