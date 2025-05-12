@@ -12,6 +12,20 @@ A simple docker orchestration for a LAMP environment.
 
 ## Installation
 
+### Folder Structure
+
+You should have already a folder structure like this:
+
+    YourDevFolder
+
+    |- EgleesGourmet
+
+    |- orchestration     <- This repo
+
+    |- myStoreAdmin
+
+### Getting Started
+
 You must have Docker installed and running properly.
 
 clone this repo using git
