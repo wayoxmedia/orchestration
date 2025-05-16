@@ -12,22 +12,30 @@ services:
       - eglee
 
   deepdevs:
+    image: deepdevs_orc:1.0.0
     build:
       context: .
       dockerfile: docker/dd.Dockerfile
-    container_name: deepdevs
+    container_name: deepdevs_orc
     # network_mode: "host"  # Use the host's network for external connections
     volumes:
       - ../myStoreAdmin/html:/var/www/html
       - ./docker/deepdevs-vhost.conf:/etc/apache2/sites-enabled/000-default.conf
     expose:
       - "80"
+    env_file:
+      - ../myStoreAdmin/.env
+    environment:
+      # Enables Xdebug's code coverage analysis for development and testing purposes.
+      # Ensure this is disabled in production to avoid performance issues.
+      - XDEBUG_MODE=coverage
 
   eglee:
+    image: eglee_orc:1.0.0
     build:
       context: .
       dockerfile: docker/eg.Dockerfile
-    container_name: eglee
+    container_name: eglee_orc
     volumes:
       - ../EgleesGourmet/html:/var/www/html
     expose:
