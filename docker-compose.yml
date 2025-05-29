@@ -38,6 +38,7 @@ services:
     container_name: eglee_orc
     volumes:
       - ../EgleesGourmet/html:/var/www/html
+      - ../EgleesGourmet/secure:/var/www/secure
     expose:
       - "80"
 volumes:
