@@ -9,7 +9,7 @@ services:
       - ./proxy/httpd.conf:/usr/local/apache2/conf/httpd.conf
     depends_on:
       - deepdevs
-      - eglee
+      - template1
 
   deepdevs:
     image: deepdevs_orc:1.0.0
@@ -28,14 +28,15 @@ services:
     environment:
       # Enables Xdebug's code coverage analysis for development and testing purposes.
       # Ensure this is disabled in production to avoid performance issues.
-      - XDEBUG_MODE=coverage
-
-  eglee:
-    image: eglee_orc:1.0.0
+      - XDEBUG_MODE=coverage,debug
+      - XDEBUG_CONFIG=client_host=host.docker.internal client_port=9003 idekey=PHPSTORM discover_client_host=0 log=/var/www/html/storage/logs/xdebug.log log_level=7 start_with_request=trigger
+      #- XDEBUG_CONFIG=client_host=10.0.0.30           client_port=9003 idekey=PHPSTORM discover_client_host=0 log=/var/www/html/storage/logs/xdebug.log log_level=7 start_with_request=trigger
+  template1:
+    image: template1_orc:1.0.0
     build:
       context: .
-      dockerfile: docker/eg.Dockerfile
-    container_name: eglee_orc
+      dockerfile: docker/t1.Dockerfile
+    container_name: template1_orc
     volumes:
       - ../EgleesGourmet/html:/var/www/html
       - ../EgleesGourmet/secure:/var/www/secure
@@ -43,4 +44,4 @@ services:
       - "80"
 volumes:
   deepdevs-data:
-  eglee-data:
+  template1-data:
