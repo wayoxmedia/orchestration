@@ -8,23 +8,34 @@ services:
       - ./proxy/vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
       - ./proxy/httpd.conf:/usr/local/apache2/conf/httpd.conf
     depends_on:
-      - deepdevs
+      - myStorePanel
       - template1
+      - template2
+      - template3
+      - template4
+      - template5
+      - template6
+      - template7
+    networks:
+      - orx_network
 
-  deepdevs:
-    image: deepdevs_orc:1.0.0
+
+  myStorePanel:
+    image: my_store_panel_orx:1.0.0
     build:
-      context: .
-      dockerfile: docker/dd.Dockerfile
-    container_name: deepdevs_orc
+      context: ../myStorePanel
+      dockerfile: ../myStorePanel/docker/Dockerfile
+    container_name: myStorePanel_orx
     # network_mode: "host"  # Use the host's network for external connections
     volumes:
-      - ../myStoreAdmin/html:/var/www/html
-      - ./docker/deepdevs-vhost.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ../myStorePanel/html:/var/www/html
+      - ./docker/myStorePanel-vhost.conf:/etc/apache2/sites-enabled/000-default.conf
     expose:
       - "80"
     env_file:
-      - ../myStoreAdmin/.env
+      - ../myStorePanel/.env
+    networks:
+      - orx_network
     environment:
       # Enables Xdebug's code coverage analysis for development and testing purposes.
       # Ensure this is disabled in production to avoid performance issues.
@@ -32,16 +43,109 @@ services:
       - XDEBUG_CONFIG=client_host=host.docker.internal client_port=9003 idekey=PHPSTORM discover_client_host=0 log=/var/www/html/storage/logs/xdebug.log log_level=7 start_with_request=trigger
       #- XDEBUG_CONFIG=client_host=10.0.0.30           client_port=9003 idekey=PHPSTORM discover_client_host=0 log=/var/www/html/storage/logs/xdebug.log log_level=7 start_with_request=trigger
   template1:
-    image: template1_orc:1.0.0
+    image: template1_orx:1.0.0
     build:
-      context: .
-      dockerfile: docker/t1.Dockerfile
-    container_name: template1_orc
+      context: ../template1
+      dockerfile: ../template1/Dockerfile
+    container_name: template1_orx
+    networks:
+      - orx_network
+    # network_mode: "host"  # Use the host's network for external connections
     volumes:
-      - ../EgleesGourmet/html:/var/www/html
-      - ../EgleesGourmet/secure:/var/www/secure
+      - ../template1/html:/var/www/html
+      - ../template1/secure:/var/www/secure
+    expose:
+      - "80"
+  template2:
+    image: template2_orx:1.0.0
+    build:
+      context: ../template2
+      dockerfile: ../template2/Dockerfile
+    container_name: template2_orx
+    networks:
+      - orx_network
+    # network_mode: "host"  # Use the host's network for external connections
+    volumes:
+      - ../template2/html:/var/www/html
+      - ../template2/secure:/var/www/secure
+    expose:
+      - "80"
+  template3:
+    image: template3_orx:1.0.0
+    build:
+      context: ../template3
+      dockerfile: ../template3/Dockerfile
+    container_name: template3_orx
+    networks:
+      - orx_network
+    # network_mode: "host"  # Use the host's network for external connections
+    volumes:
+      - ../template3/html:/var/www/html
+      - ../template3/secure:/var/www/secure
+    expose:
+      - "80"
+  template4:
+    image: template4_orx:1.0.0
+    build:
+      context: ../template4
+      dockerfile: ../template4/Dockerfile
+    container_name: template4_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template4/html:/var/www/html
+      - ../template4/secure:/var/www/secure
+    expose:
+      - "80"
+  template5:
+    image: template5_orx:1.0.0
+    build:
+      context: ../template5
+      dockerfile: ../template5/Dockerfile
+    container_name: template5_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template5/html:/var/www/html
+      - ../template5/secure:/var/www/secure
+    expose:
+      - "80"
+  template6:
+    image: template6_orx:1.0.0
+    build:
+      context: ../template6
+      dockerfile: ../template6/Dockerfile
+    container_name: template6_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template6/html:/var/www/html
+      - ../template6/secure:/var/www/secure
+    expose:
+      - "80"
+  template7:
+    image: template7_orx:1.0.0
+    build:
+      context: ../template7
+      dockerfile: ../template7/Dockerfile
+    container_name: template7_orx
+    networks:
+      - orx_network
+    # network_mode: "host"  # Use the host's network for external connections
+    volumes:
+      - ../template7/html:/var/www/html
+      - ../template7/secure:/var/www/secure
     expose:
       - "80"
 volumes:
-  deepdevs-data:
+  myStorePanel-data:
   template1-data:
+  template2-data:
+  template3-data:
+  template4-data:
+  template5-data:
+  template6-data:
+  template7-data:
+networks:
+  orx_network:
+    driver: bridge

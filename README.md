@@ -7,8 +7,12 @@ A simple docker orchestration for a LAMP environment.
 * ssh
 * docker
 * Your favorite IDE (Visual Studio Code, PhpStorm, etc.)
-* My Store Admin repo successfully cloned and running. (https://github.com/wayoxmedia/myStoreAdmin)
-* RestoMarket repo successfully cloned and running. (https://github.com/wayoxmedia/restomarket)
+* My Store Panel repo successfully cloned and running. (https://github.com/wayoxmedia/myStorePanel)
+* All Templates (currently 7) repos successfully cloned and running.
+  * (https://github.com/wayoxmedia/template1)
+  * (https://github.com/wayoxmedia/template2)
+  * ...
+  * (https://github.com/wayoxmedia/template7)
 
 ## Installation
 
@@ -17,9 +21,15 @@ A simple docker orchestration for a LAMP environment.
 You should have already a folder structure like this:
 
     YourDevFolder
-    |- EgleesGourmet
+    |- template1
+    |- template2
+    |- template3
+    |- template4
+    |- template5
+    |- template6
+    |- template7
     |- orchestration     <- This repo
-    |- myStoreAdmin
+    |- mystorepanel
 
 ### Getting Started
 
@@ -27,7 +37,7 @@ You must have Docker installed and running properly.
 
 clone this repo using git
 
-`git clone git@github.com:wayoxmedia/store_orchestration.git orchestration`
+`git clone git@github.com:wayoxmedia/orchestration.git`
 
 cd into your app
 
