@@ -7,7 +7,7 @@ A simple docker orchestration for a LAMP environment.
 * ssh
 * docker
 * Your favorite IDE (Visual Studio Code, PhpStorm, etc.)
-* My Store Panel repo successfully cloned and running. (https://github.com/wayoxmedia/myStorePanel)
+* My Store Panel repo successfully cloned and running. (https://github.com/wayoxmedia/mystorepanel)
 * All Templates (currently 7) repos successfully cloned and running.
   * (https://github.com/wayoxmedia/template1)
   * (https://github.com/wayoxmedia/template2)
@@ -49,11 +49,20 @@ run docker build
 
 this may take some minutes if this is your first install, images are been downloaded.
 
-Now, bring up the environment.
+Now, bring up the environment. We have two ways to do this, all of them or the ones you need.
+
+If you want to run all the containers, run:
 
 `docker-compose up -d`
 
-Check the containers are properly running
+If you want to run only the containers you need, run:
+`docker-compose up -d mystorepanel template1 template2 template3 template4 template5 template6 template7`
+or
+`./orx.sh`
+
+This script will ask you which containers you want to run, and will start them in detached mode.
+
+Check that your containers are properly up and running.
 
 `docker ps`
 
