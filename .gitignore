@@ -1,0 +1,21 @@
+########################
+### App & Security
+.env
+!.gitkeep
+
+########################
+### IDE
+.idea/
+/.idea
+/*.iml
+/nbproject/
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+template1.code-workspace
+
+########################
+### OS
+.DS_Store

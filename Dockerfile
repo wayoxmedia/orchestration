@@ -6,9 +6,9 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # ---- Global ENV (Composer + Node via NVM) ----
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
-    NODE_VERSION=20.14.0 \
+    NODE_VERSION=20.17.0 \
     NVM_DIR=/root/.nvm \
-    PATH="/root/.nvm/versions/node/v20.14.0/bin/:$PATH"
+    PATH="/root/.nvm/versions/node/v20.17.0/bin/:$PATH"
 
 # ---- System deps + PHP extensions (Laravel-friendly) ----
 RUN apt-get update && apt-get upgrade -y && \
