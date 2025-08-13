@@ -24,8 +24,8 @@ services:
   mystorepanel:
     image: my_store_panel_orx:1.0.0
     build:
-      context: ../mystorepanel
-      dockerfile: ../mystorepanel/docker/Dockerfile
+      context: ../../mystorepanel
+      dockerfile: ../../mystorepanel/docker/Dockerfile
     container_name: mystorepanel_orx
     volumes:
       - ../mystorepanel/html:/var/www/html
@@ -33,7 +33,7 @@ services:
     expose:
       - "80"
     env_file:
-      - ../mystorepanel/.env
+      - ../../mystorepanel/.env
     networks:
       - orx_network
     environment:
@@ -43,8 +43,8 @@ services:
   template1:
     image: template1_orx:1.0.0
     build:
-      context: ../template1
-      dockerfile: ../template1/docker/Dockerfile
+      context: ../../template1
+      dockerfile: ../../template1/docker/Dockerfile
     container_name: template1_orx
     networks:
       - orx_network
@@ -56,8 +56,8 @@ services:
   template2:
     image: template2_orx:1.0.0
     build:
-      context: ../template2
-      dockerfile: ../template2/docker/Dockerfile
+      context: ../../template2
+      dockerfile: ../../template2/docker/Dockerfile
     container_name: template2_orx
     networks:
       - orx_network
@@ -69,8 +69,8 @@ services:
   template3:
     image: template3_orx:1.0.0
     build:
-      context: ../template3
-      dockerfile: ../template3/docker/Dockerfile
+      context: ../../template3
+      dockerfile: ../../template3/docker/Dockerfile
     container_name: template3_orx
     networks:
       - orx_network
@@ -82,8 +82,8 @@ services:
   template4:
     image: template4_orx:1.0.0
     build:
-      context: ../template4
-      dockerfile: ../template4/docker/Dockerfile
+      context: ../../template4
+      dockerfile: ../../template4/docker/Dockerfile
     container_name: template4_orx
     networks:
       - orx_network
@@ -95,8 +95,8 @@ services:
   template5:
     image: template5_orx:1.0.0
     build:
-      context: ../template5
-      dockerfile: ../template5/docker/Dockerfile
+      context: ../../template5
+      dockerfile: ../../template5/docker/Dockerfile
     container_name: template5_orx
     networks:
       - orx_network
@@ -108,8 +108,8 @@ services:
   template6:
     image: template6_orx:1.0.0
     build:
-      context: ../template6
-      dockerfile: ../template6/docker/Dockerfile
+      context: ../../template6
+      dockerfile: ../../template6/docker/Dockerfile
     container_name: template6_orx
     networks:
       - orx_network
@@ -121,8 +121,8 @@ services:
   template7:
     image: template7_orx:1.0.0
     build:
-      context: ../template7
-      dockerfile: ../template7/docker/Dockerfile
+      context: ../../template7
+      dockerfile: ../../template7/docker/Dockerfile
     container_name: template7_orx
     networks:
       - orx_network
@@ -134,8 +134,8 @@ services:
   web-templates:
     image: web-templates_orx:1.0.0
     build:
-      context: ../web-templates
-      dockerfile: ../web-templates/docker/Dockerfile
+      context: ../../web-templates
+      dockerfile: ../../web-templates/docker/Dockerfile
     container_name: web-templates_orx
     networks:
       - orx_network
