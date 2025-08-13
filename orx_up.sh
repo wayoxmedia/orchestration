@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # === CONFIG ===
-ALL_SERVICES=("mystorepanel" "template1" "template2" "template3" "template4" "template5" "template6" "template7")
+ALL_SERVICES=("mystorepanel" "template1" "template2" "template3" "template4" "template5" "template6" "template7" "web-templates")
 COMPOSE_PROJECT_DIR="$(dirname "$0")"
 SELECTED_SERVICES=()
 

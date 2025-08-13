@@ -16,6 +16,7 @@ services:
       - template5
       - template6
       - template7
+      - web-templates
     networks:
       - orx_network
 
@@ -128,6 +129,19 @@ services:
     volumes:
       - ../template7/html:/var/www/html
       - ../template7/secure:/var/www/secure
+    expose:
+      - "80"
+  web-templates:
+    image: web-templates_orx:1.0.0
+    build:
+      context: ../web-templates
+      dockerfile: ../web-templates/docker/Dockerfile
+    container_name: web-templates_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../web-templates/html:/var/www/html
+      - ../web-templates/secure:/var/www/secure
     expose:
       - "80"
 networks:
