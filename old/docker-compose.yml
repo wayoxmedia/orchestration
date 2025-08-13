@@ -1,0 +1,149 @@
+services:
+  apache-proxy:
+    image: httpd:2.4
+    container_name: apache-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./proxy/vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+      - ./proxy/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - mystorepanel
+      - template1
+      - template2
+      - template3
+      - template4
+      - template5
+      - template6
+      - template7
+      - web-templates
+    networks:
+      - orx_network
+
+
+  mystorepanel:
+    image: my_store_panel_orx:1.0.0
+    build:
+      context: ../../mystorepanel
+      dockerfile: ../../mystorepanel/docker/Dockerfile
+    container_name: mystorepanel_orx
+    volumes:
+      - ../mystorepanel/html:/var/www/html
+      - ./docker/mystorepanel-vhost.conf:/etc/apache2/sites-enabled/000-default.conf
+    expose:
+      - "80"
+    env_file:
+      - ../../mystorepanel/.env
+    networks:
+      - orx_network
+    environment:
+      - XDEBUG_LOG_LEVEL=3
+
+# === TEMPLATES ===
+  template1:
+    image: template1_orx:1.0.0
+    build:
+      context: ../../template1
+      dockerfile: ../../template1/docker/Dockerfile
+    container_name: template1_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template1/html:/var/www/html
+      - ../template1/secure:/var/www/secure
+    expose:
+      - "80"
+  template2:
+    image: template2_orx:1.0.0
+    build:
+      context: ../../template2
+      dockerfile: ../../template2/docker/Dockerfile
+    container_name: template2_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template2/html:/var/www/html
+      - ../template2/secure:/var/www/secure
+    expose:
+      - "80"
+  template3:
+    image: template3_orx:1.0.0
+    build:
+      context: ../../template3
+      dockerfile: ../../template3/docker/Dockerfile
+    container_name: template3_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template3/html:/var/www/html
+      - ../template3/secure:/var/www/secure
+    expose:
+      - "80"
+  template4:
+    image: template4_orx:1.0.0
+    build:
+      context: ../../template4
+      dockerfile: ../../template4/docker/Dockerfile
+    container_name: template4_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template4/html:/var/www/html
+      - ../template4/secure:/var/www/secure
+    expose:
+      - "80"
+  template5:
+    image: template5_orx:1.0.0
+    build:
+      context: ../../template5
+      dockerfile: ../../template5/docker/Dockerfile
+    container_name: template5_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template5/html:/var/www/html
+      - ../template5/secure:/var/www/secure
+    expose:
+      - "80"
+  template6:
+    image: template6_orx:1.0.0
+    build:
+      context: ../../template6
+      dockerfile: ../../template6/docker/Dockerfile
+    container_name: template6_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template6/html:/var/www/html
+      - ../template6/secure:/var/www/secure
+    expose:
+      - "80"
+  template7:
+    image: template7_orx:1.0.0
+    build:
+      context: ../../template7
+      dockerfile: ../../template7/docker/Dockerfile
+    container_name: template7_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../template7/html:/var/www/html
+      - ../template7/secure:/var/www/secure
+    expose:
+      - "80"
+  web-templates:
+    image: web-templates_orx:1.0.0
+    build:
+      context: ../../web-templates
+      dockerfile: ../../web-templates/docker/Dockerfile
+    container_name: web-templates_orx
+    networks:
+      - orx_network
+    volumes:
+      - ../web-templates/html:/var/www/html
+      - ../web-templates/secure:/var/www/secure
+    expose:
+      - "80"
+networks:
+  orx_network:
+    driver: bridge

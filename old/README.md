@@ -57,6 +57,13 @@ If you want to run all the containers, run:
 
 `docker-compose up -d`
 
+If you want to run only the containers you need, run:
+`docker-compose up -d mystorepanel template1 template2 template3 template4 template5 template6 template7 web-templates`
+or
+`./orx.sh`
+
+This script will ask you which containers you want to run, and will start them in detached mode.
+
 Check that your containers are properly up and running.
 
 `docker ps`
@@ -72,19 +79,6 @@ No issues discovered so far, but if you have any, please open an issue.
 * Use Visual Studio Code with the Remote - Containers extension to open your project in a container.
 * Use the Docker extension to manage your containers, images, volumes, networks and containers.
 
-### Useful commands
-* To stop all containers: `docker-compose down`
-* To stop and remove all containers, networks, images, and volumes: `docker-compose down --volumes --remove-orphans`
-* To rebuild the containers: `docker-compose up -d --build`
-* To view logs: `docker-compose logs -f`
-
-#### For debugging purposes
-
-* Global:
-  * Edit orchestration/.env → `XDEBUG_LOG_LEVEL=7` to get all logs, or any other level you want (down to 0).
-  * Use `docker compose up -d` and then `docker exec -it multi-vhost-apache apachectl -k graceful` (preferred method)
-  * Alternatively to above, `docker compose up -d` or `docker compose restart web` to restart the web container.
-  * Use `docker exec -it multi-vhost-apache php -i | grep -i xdebug` to check xdebug settings.
 
 Happy coding!
 

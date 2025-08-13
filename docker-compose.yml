@@ -1,149 +1,85 @@
 services:
-  apache-proxy:
-    image: httpd:2.4
-    container_name: apache-proxy
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: multi-vhost-apache
     ports:
       - "80:80"
+      - "9003:9003"  # Xdebug 3
+    extra_hosts:
+      # For Linux devs: make host.docker.internal work
+      - "host.docker.internal:host-gateway"
+      # Make these hostnames resolve *inside* the container for healthcheck
+      - "web-templates.test:127.0.0.1"
+      - "web-templates:127.0.0.1"
+      - "mystorepanel.test:127.0.0.1"
+      - "mystorepanel:127.0.0.1"
+      - "template1.test:127.0.0.1"
+      - "template2.test:127.0.0.1"
+      - "template3.test:127.0.0.1"
+      - "template4.test:127.0.0.1"
+      - "template5.test:127.0.0.1"
+      - "template6.test:127.0.0.1"
+      - "template7.test:127.0.0.1"
     volumes:
-      - ./proxy/vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
-      - ./proxy/httpd.conf:/usr/local/apache2/conf/httpd.conf
-    depends_on:
-      - mystorepanel
-      - template1
-      - template2
-      - template3
-      - template4
-      - template5
-      - template6
-      - template7
-      - web-templates
-    networks:
-      - orx_network
+      # Map read only (:ro) templates to the container
+      - ../mystorepanel:/var/www/mystorepanel:ro
+      - ../mystorepanel/html/storage:/var/www/mystorepanel/html/storage
+      - ../mystorepanel/html/bootstrap/cache:/var/www/mystorepanel/html/bootstrap/cache
 
+      - ../web-templates:/var/www/web-templates:ro
+      - ../web-templates/html/storage:/var/www/web-templates/html/storage
+      - ../web-templates/html/bootstrap/cache:/var/www/web-templates/html/bootstrap/cache
 
-  mystorepanel:
-    image: my_store_panel_orx:1.0.0
-    build:
-      context: ../mystorepanel
-      dockerfile: ../mystorepanel/docker/Dockerfile
-    container_name: mystorepanel_orx
-    volumes:
-      - ../mystorepanel/html:/var/www/html
-      - ./docker/mystorepanel-vhost.conf:/etc/apache2/sites-enabled/000-default.conf
-    expose:
-      - "80"
-    env_file:
-      - ../mystorepanel/.env
-    networks:
-      - orx_network
+      - ../template1:/var/www/template1:ro
+      - ../template1/logs:/var/www/template1/html/logs
+
+      - ../template2:/var/www/template2:ro
+      - ../template2/logs:/var/www/template2/html/logs
+
+      - ../template3:/var/www/template3:ro
+      - ../template3/logs:/var/www/template3/html/logs
+
+      - ../template4:/var/www/template4:ro
+      - ../template4/logs:/var/www/template4/html/logs
+
+      - ../template5:/var/www/template5:ro
+      - ../template5/logs:/var/www/template5/html/logs
+
+      - ../template6:/var/www/template6:ro
+      - ../template6/logs:/var/www/template6/html/logs
+
+      - ../template7:/var/www/template7:ro
+      - ../template7/logs:/var/www/template7/html/logs
+
+      # Apache & Xdebug configurations
+      - ./apache/vhosts.conf:/etc/apache2/sites-enabled/000-vhosts.conf:ro
+      - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
+
     environment:
-      - XDEBUG_LOG_LEVEL=3
+      APACHE_RUN_USER: www-data
+      APACHE_RUN_GROUP: www-data
+      XDEBUG_LOG_LEVEL: "${XDEBUG_LOG_LEVEL:-3}"  # Default to 3 if not set in .env
 
-# === TEMPLATES ===
-  template1:
-    image: template1_orx:1.0.0
-    build:
-      context: ../template1
-      dockerfile: ../template1/docker/Dockerfile
-    container_name: template1_orx
-    networks:
-      - orx_network
-    volumes:
-      - ../template1/html:/var/www/html
-      - ../template1/secure:/var/www/secure
-    expose:
-      - "80"
-  template2:
-    image: template2_orx:1.0.0
-    build:
-      context: ../template2
-      dockerfile: ../template2/docker/Dockerfile
-    container_name: template2_orx
-    networks:
-      - orx_network
-    volumes:
-      - ../template2/html:/var/www/html
-      - ../template2/secure:/var/www/secure
-    expose:
-      - "80"
-  template3:
-    image: template3_orx:1.0.0
-    build:
-      context: ../template3
-      dockerfile: ../template3/docker/Dockerfile
-    container_name: template3_orx
-    networks:
-      - orx_network
-    volumes:
-      - ../template3/html:/var/www/html
-      - ../template3/secure:/var/www/secure
-    expose:
-      - "80"
-  template4:
-    image: template4_orx:1.0.0
-    build:
-      context: ../template4
-      dockerfile: ../template4/docker/Dockerfile
-    container_name: template4_orx
-    networks:
-      - orx_network
-    volumes:
-      - ../template4/html:/var/www/html
-      - ../template4/secure:/var/www/secure
-    expose:
-      - "80"
-  template5:
-    image: template5_orx:1.0.0
-    build:
-      context: ../template5
-      dockerfile: ../template5/docker/Dockerfile
-    container_name: template5_orx
-    networks:
-      - orx_network
-    volumes:
-      - ../template5/html:/var/www/html
-      - ../template5/secure:/var/www/secure
-    expose:
-      - "80"
-  template6:
-    image: template6_orx:1.0.0
-    build:
-      context: ../template6
-      dockerfile: ../template6/docker/Dockerfile
-    container_name: template6_orx
-    networks:
-      - orx_network
-    volumes:
-      - ../template6/html:/var/www/html
-      - ../template6/secure:/var/www/secure
-    expose:
-      - "80"
-  template7:
-    image: template7_orx:1.0.0
-    build:
-      context: ../template7
-      dockerfile: ../template7/docker/Dockerfile
-    container_name: template7_orx
-    networks:
-      - orx_network
-    volumes:
-      - ../template7/html:/var/www/html
-      - ../template7/secure:/var/www/secure
-    expose:
-      - "80"
-  web-templates:
-    image: web-templates_orx:1.0.0
-    build:
-      context: ../web-templates
-      dockerfile: ../web-templates/docker/Dockerfile
-    container_name: web-templates_orx
-    networks:
-      - orx_network
-    volumes:
-      - ../web-templates/html:/var/www/html
-      - ../web-templates/secure:/var/www/secure
-    expose:
-      - "80"
-networks:
-  orx_network:
-    driver: bridge
+    # Opcional: pequeño healthcheck (puedes comentar si te estorba)
+    # Comprobamos que todas las plantillas están accesibles
+    healthcheck:
+      test: >
+        bash -c '
+          curl -fsS http://localhost/ || exit 1;
+          curl -fsS http://mystorepanel.test/ || exit 1;
+          curl -fsS http://web-templates.test/ || exit 1;
+          curl -fsS http://template1.test/ || exit 1;
+          curl -fsS http://template2.test/ || exit 1;
+          curl -fsS http://template3.test/ || exit 1;
+          curl -fsS http://template4.test/ || exit 1;
+          curl -fsS http://template5.test/ || exit 1;
+          curl -fsS http://template6.test/ || exit 1;
+          curl -fsS http://template7.test/ || exit 1;
+        '
+      interval: 2m
+      timeout: 10s
+      retries: 3
+
+    restart: unless-stopped
