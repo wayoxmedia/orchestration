@@ -1,20 +1,19 @@
 services:
-  web:
+  web-orx:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: multi-vhost-apache
+    container_name: apache
     ports:
       - "80:80"
-      - "9003:9003"  # Xdebug 3
     extra_hosts:
       # For Linux devs: make host.docker.internal work
       - "host.docker.internal:host-gateway"
       # Make these hostnames resolve *inside* the container for healthcheck
       - "web-templates.test:127.0.0.1"
-      - "web-templates:127.0.0.1"
+      # - "web-templates:127.0.0.1"
       - "mystorepanel.test:127.0.0.1"
-      - "mystorepanel:127.0.0.1"
+      # - "mystorepanel:127.0.0.1"
       - "template1.test:127.0.0.1"
       - "template2.test:127.0.0.1"
       - "template3.test:127.0.0.1"
@@ -23,15 +22,15 @@ services:
       - "template6.test:127.0.0.1"
       - "template7.test:127.0.0.1"
     volumes:
-      # Map read only (:ro) templates to the container
+      # mystorepanel (ro + carpetas rw)
       - ../mystorepanel:/var/www/mystorepanel:ro
       - ../mystorepanel/html/storage:/var/www/mystorepanel/html/storage
       - ../mystorepanel/html/bootstrap/cache:/var/www/mystorepanel/html/bootstrap/cache
-
+      # web-templates (ro + carpetas rw)
       - ../web-templates:/var/www/web-templates:ro
       - ../web-templates/html/storage:/var/www/web-templates/html/storage
       - ../web-templates/html/bootstrap/cache:/var/www/web-templates/html/bootstrap/cache
-
+      # templates extra...
       - ../template1:/var/www/template1:ro
       - ../template1/logs:/var/www/template1/html/logs
 
@@ -55,15 +54,18 @@ services:
 
       # Apache & Xdebug configurations
       - ./apache/vhosts.conf:/etc/apache2/sites-enabled/000-vhosts.conf:ro
-      - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
+      - ./php/xdebug.ini:/usr/local/etc/php/conf.d/99-xdebug.ini:ro
 
     environment:
       APACHE_RUN_USER: www-data
       APACHE_RUN_GROUP: www-data
       XDEBUG_LOG_LEVEL: "${XDEBUG_LOG_LEVEL:-3}"  # Default to 3 if not set in .env
+      XDEBUG_MODE: "debug,develop,coverage"
+      SLACK_PHPUNIT_NOTIFY_WEBHOOK_URL: "${SLACK_PHPUNIT_NOTIFY_WEBHOOK_URL}"
+      TEST_RUN_USER: "${TEST_RUN_USER:-www-data}"  # Default to www-data if not set in .env
 
-    # Opcional: pequeño healthcheck (puedes comentar si te estorba)
-    # Comprobamos que todas las plantillas están accesibles
+    # Optional: small healthcheck
+    # Check if all templates and mystorepanel are reachable
     healthcheck:
       test: >
         bash -c '
