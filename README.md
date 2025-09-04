@@ -7,8 +7,8 @@ A simple docker orchestration for a LAMP environment.
 * ssh
 * docker
 * Your favorite IDE (Visual Studio Code, PhpStorm, etc.)
-* My Store Panel repo successfully cloned and running. (https://github.com/wayoxmedia/mystorepanel)
-* All Templates (currently 7) + web-templates repos successfully cloned and running.
+* My Store Panel repo successfully cloned. (https://github.com/wayoxmedia/mystorepanel)
+* All Templates (currently 7) + web-templates repos successfully cloned.
   * (https://github.com/wayoxmedia/template1)
   * (https://github.com/wayoxmedia/template2)
   * ...
@@ -19,7 +19,7 @@ A simple docker orchestration for a LAMP environment.
 
 ### Folder Structure
 
-You should have after cloned all the repos in a folder structure like this:
+You should have already cloned all the repos in a folder structure like this:
 
     YourDevFolder
     |- template1

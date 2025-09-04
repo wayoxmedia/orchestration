@@ -22,11 +22,11 @@ services:
       - "template6.test:127.0.0.1"
       - "template7.test:127.0.0.1"
     volumes:
-      # mystorepanel (ro + carpetas rw)
+      # mystorepanel (ro + rw folders)
       - ../mystorepanel:/var/www/mystorepanel:ro
       - ../mystorepanel/html/storage:/var/www/mystorepanel/html/storage
       - ../mystorepanel/html/bootstrap/cache:/var/www/mystorepanel/html/bootstrap/cache
-      # web-templates (ro + carpetas rw)
+      # web-templates (ro + rw folders)
       - ../web-templates:/var/www/web-templates:ro
       - ../web-templates/html/storage:/var/www/web-templates/html/storage
       - ../web-templates/html/bootstrap/cache:/var/www/web-templates/html/bootstrap/cache
