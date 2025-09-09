@@ -32,25 +32,25 @@ services:
       - ../web-templates/html/bootstrap/cache:/var/www/web-templates/html/bootstrap/cache
       # templates extra...
       - ../template1:/var/www/template1:ro
-      - ../template1/logs:/var/www/template1/html/logs
+      - ../template1/html/logs:/var/www/template1/html/logs
 
       - ../template2:/var/www/template2:ro
-      - ../template2/logs:/var/www/template2/html/logs
+      - ../template2/html/logs:/var/www/template2/html/logs
 
       - ../template3:/var/www/template3:ro
-      - ../template3/logs:/var/www/template3/html/logs
+      - ../template3/html/logs:/var/www/template3/html/logs
 
       - ../template4:/var/www/template4:ro
-      - ../template4/logs:/var/www/template4/html/logs
+      - ../template4/html/logs:/var/www/template4/html/logs
 
       - ../template5:/var/www/template5:ro
-      - ../template5/logs:/var/www/template5/html/logs
+      - ../template5/html/logs:/var/www/template5/html/logs
 
       - ../template6:/var/www/template6:ro
-      - ../template6/logs:/var/www/template6/html/logs
+      - ../template6/html/logs:/var/www/template6/html/logs
 
       - ../template7:/var/www/template7:ro
-      - ../template7/logs:/var/www/template7/html/logs
+      - ../template7/html/logs:/var/www/template7/html/logs
 
       # Apache & Xdebug configurations
       - ./apache/vhosts.conf:/etc/apache2/sites-enabled/000-vhosts.conf:ro
