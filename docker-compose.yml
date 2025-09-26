@@ -25,36 +25,24 @@ services:
     volumes:
       # mystorepanel (ro + rw folders)
       - ../mystorepanel:/var/www/mystorepanel
-      - ../mystorepanel/html/storage:/var/www/mystorepanel/html/storage
-      - ../mystorepanel/html/bootstrap/cache:/var/www/mystorepanel/html/bootstrap/cache
       # web-templates (ro + rw folders)
       - ../web-templates:/var/www/web-templates
-      - ../web-templates/html/storage:/var/www/web-templates/html/storage
-      - ../web-templates/html/bootstrap/cache:/var/www/web-templates/html/bootstrap/cache
       # templates extra...
       - ../template1:/var/www/template1
-      - ../template1/html/logs:/var/www/template1/html/logs
 
       - ../template2:/var/www/template2
-      - ../template2/html/logs:/var/www/template2/html/logs
 
       - ../template3:/var/www/template3
-      - ../template3/html/logs:/var/www/template3/html/logs
 
       - ../template4:/var/www/template4
-      - ../template4/html/logs:/var/www/template4/html/logs
 
       - ../template5:/var/www/template5
-      - ../template5/html/logs:/var/www/template5/html/logs
 
       - ../template6:/var/www/template6
-      - ../template6/html/logs:/var/www/template6/html/logs
 
       - ../template7:/var/www/template7
-      - ../template7/html/logs:/var/www/template7/html/logs
 
       - ../template8:/var/www/template8
-      - ../template8/html/logs:/var/www/template8/html/logs
 
       # Apache & Xdebug configurations
       - ./apache/vhosts.conf:/etc/apache2/sites-enabled/000-vhosts.conf
