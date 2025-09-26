@@ -21,40 +21,32 @@ services:
       - "template5.test:127.0.0.1"
       - "template6.test:127.0.0.1"
       - "template7.test:127.0.0.1"
+      - "template8.test:127.0.0.1"
     volumes:
       # mystorepanel (ro + rw folders)
-      - ../mystorepanel:/var/www/mystorepanel:ro
-      - ../mystorepanel/html/storage:/var/www/mystorepanel/html/storage
-      - ../mystorepanel/html/bootstrap/cache:/var/www/mystorepanel/html/bootstrap/cache
+      - ../mystorepanel:/var/www/mystorepanel
       # web-templates (ro + rw folders)
-      - ../web-templates:/var/www/web-templates:ro
-      - ../web-templates/html/storage:/var/www/web-templates/html/storage
-      - ../web-templates/html/bootstrap/cache:/var/www/web-templates/html/bootstrap/cache
+      - ../web-templates:/var/www/web-templates
       # templates extra...
-      - ../template1:/var/www/template1:ro
-      - ../template1/html/logs:/var/www/template1/html/logs
+      - ../template1:/var/www/template1
 
-      - ../template2:/var/www/template2:ro
-      - ../template2/html/logs:/var/www/template2/html/logs
+      - ../template2:/var/www/template2
 
-      - ../template3:/var/www/template3:ro
-      - ../template3/html/logs:/var/www/template3/html/logs
+      - ../template3:/var/www/template3
 
-      - ../template4:/var/www/template4:ro
-      - ../template4/html/logs:/var/www/template4/html/logs
+      - ../template4:/var/www/template4
 
-      - ../template5:/var/www/template5:ro
-      - ../template5/html/logs:/var/www/template5/html/logs
+      - ../template5:/var/www/template5
 
-      - ../template6:/var/www/template6:ro
-      - ../template6/html/logs:/var/www/template6/html/logs
+      - ../template6:/var/www/template6
 
-      - ../template7:/var/www/template7:ro
-      - ../template7/html/logs:/var/www/template7/html/logs
+      - ../template7:/var/www/template7
+
+      - ../template8:/var/www/template8
 
       # Apache & Xdebug configurations
-      - ./apache/vhosts.conf:/etc/apache2/sites-enabled/000-vhosts.conf:ro
-      - ./php/xdebug.ini:/usr/local/etc/php/conf.d/99-xdebug.ini:ro
+      - ./apache/vhosts.conf:/etc/apache2/sites-enabled/000-vhosts.conf
+      - ./php/xdebug.ini:/usr/local/etc/php/conf.d/99-xdebug.ini
 
     environment:
       APACHE_RUN_USER: www-data
@@ -79,6 +71,7 @@ services:
           curl -fsS http://template5.test/ || exit 1;
           curl -fsS http://template6.test/ || exit 1;
           curl -fsS http://template7.test/ || exit 1;
+          curl -fsS http://template8.test/ || exit 1;
         '
       interval: 2m
       timeout: 10s
