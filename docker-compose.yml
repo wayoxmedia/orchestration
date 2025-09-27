@@ -77,4 +77,60 @@ services:
       timeout: 10s
       retries: 3
 
+    networks:
+      - msp_net
+    depends_on:
+      mysql_test:
+        condition: service_healthy
+
     restart: unless-stopped
+
+  mysql_test:
+    image: mysql:8.0
+    container_name: mysql_msp_test
+    restart: unless-stopped
+    ports:
+      - "3306:3306"   # host:container
+    environment:
+      MYSQL_DATABASE: mystorepanel_test
+      MYSQL_USER: msp_test
+      MYSQL_PASSWORD: msp_test
+      MYSQL_ROOT_PASSWORD: Root_pass
+    command: [
+      "--default-authentication-plugin=mysql_native_password",
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_ci",
+      "--sql-mode=",
+      "--innodb_flush_log_at_trx_commit=2"
+    ]
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root -pRoot_pass || exit 1" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - mysql_msp_test_data:/var/lib/mysql
+    networks:
+      - msp_net
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    container_name: pma-msp
+    restart: unless-stopped
+    depends_on:
+      - mysql_test
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: Root_pass
+    ports:
+      - "8082:80"
+    networks:
+      - msp_net
+
+networks:
+  msp_net:
+    driver: bridge
+
+volumes:
+  mysql_msp_test_data:
