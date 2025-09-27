@@ -4,6 +4,10 @@
 !.gitkeep
 
 ########################
+### OS
+.DS_Store
+
+########################
 ### IDE
 .idea/
 /.idea
@@ -15,7 +19,4 @@
 *.sublime-workspace
 *.sublime-project
 template1.code-workspace
-
-########################
-### OS
-.DS_Store
+.vscode/
